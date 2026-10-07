@@ -1,26 +1,80 @@
 @import "tailwindcss";
 
+/* Theme switches on the `dark` class on <html>. Light is the default. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --bg: #f8f8f6;
+  --surface: #f0f0ec;
+  --card: #ffffff;
+  --panel: #ffffff;
+  --fg: #111111;
+  --line: #e2e2dc;
+  --line-strong: #d1d1ca;
+  --gold: #c59b27;
+  --gold-hover: #b38a1f;
+  --gold-text: #8f6a0c; /* darker gold for text on light surfaces (contrast) */
+}
+
+.dark {
+  color-scheme: dark;
+  --bg: #0d0d0d;
+  --surface: #121212;
+  --card: #1a1a1a;
+  --panel: #181818;
+  --fg: #ffffff;
+  --line: #262626;
+  --line-strong: #404040;
+  --gold: #e5b842;
+  --gold-hover: #daa520;
+  --gold-text: #e5b842;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-panel: var(--panel);
+  --color-fg: var(--fg);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-gold: var(--gold);
+  --color-gold-hover: var(--gold-hover);
+  --color-gold-text: var(--gold-text);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-instrument-serif);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Brand logo: gold manuscript script (#E5B842 dark / #C59B27 light via --gold) with a faint metallic shadow */
+.manuscript-text {
+  font-family: var(--font-alex-brush), cursive;
+  color: var(--gold);
+  line-height: 1;
+  text-shadow:
+    0 1px 0 rgb(0 0 0 / 0.2),
+    0 0 14px color-mix(in srgb, var(--gold) 35%, transparent);
+}
+
+/* Oversized initials, sitting on the same baseline as the lowercase text */
+.drop-cap {
+  font-size: 1.35em;
+  font-weight: 500;
+  line-height: 0;
+  vertical-align: baseline;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
